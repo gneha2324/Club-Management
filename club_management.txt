@@ -1,0 +1,349 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+
+char name[20],addr[20],prof[20],gen[20];
+long int telno;
+int date;
+int b,t,s,sw,m;
+
+class club
+{
+  int mn;
+  char ch;
+  public: void welcome()
+	  {
+	   cout<<"\t\t\t===============================";
+	   cout<<"\n\t\t\t!!WELCOME TO MNPO CLUB SYSTEM!!";
+	   cout<<"\n\t\t\t===============================";
+	  getch();
+
+	  }
+
+	 void back()
+	  {
+	   cout<<"\n\nDO YOU WANT TO GO BACK TO THE MAIN MENU (Y/N): ";
+	   cin>>ch;
+	   if(ch=='y'||ch=='Y')
+	   menu();
+	   else
+	   exit(0);
+	  }
+
+	  void menu()
+	  {
+	   do
+	    {
+	    clrscr();
+	    cout
+	    <<"\n\t\tFOLLOWING TASKS CAN BE PERFORMED BY THE SYSTEM";
+	    cout<<"\n\n\n1.INSTRUCTIONS\n2.FACILITIES\n3.EXIT";
+	    int ch;
+	    cout<<"\n\nENTER YOUR CHOICE :";
+	    cin>>ch;
+
+	  switch(ch)
+	    {
+	     case 1:instruct();
+		    break;
+	     case 2:facility();
+		    break;
+	     case 3:exit(0);
+	    }
+	    }while(1);
+
+	    getch();
+	 }
+
+	  void instruct()
+	   {
+		clrscr();
+		cout<<"\n\t\tINSTRUCTIONS:"<<endl;
+		cout<<"\n\n(*)OUR CLUB OFFER BOTH MEMBERSHIP AS WELL AS NON-MEMBERSHIP FACILITIES";
+		cout<<"\n(*)YOU CAN BE A MEMBER WITH AMOUNT OF Rs.25k PER YEAR";
+		cout<<"\n(*)IF YOU ARE NON MEMBER YOU HAVE TO PAY MONTHY FOR EACH SPORTS";
+		cout<<"\n\nSPORTS YOU CAN ENJOY AS MEMBER ARE :";
+		cout<<"\n1.BADMINTON  2.TENNIS  3.SQUASH  4.SWIMMING";
+		cout<<"\n\nSPORTS YOU CAN ENJOY AS NON MEMBER ARE";
+		cout<<"\n1.BADMINTON[Rs.1k]  2.TENNIS[Rs.1k]  3.SQUASH[Rs.1k]  4.SWIMMING[RS.1k]";
+		back();
+
+		getch();
+	    }
+
+      void facility()
+	  {
+	    do
+	    {
+	    clrscr();
+	    cout<<"\n\t\tWE OFFER OUR FACILITIES FOR BOTH :";
+	    cout<<"\n[1]FOR MEMBER";
+	    cout<<"\n[2]FOR NON-MEMBERS";
+	    cout<<"\n[3]MAIN MENU";
+	    int ch2;
+	    cout<<"\n\nENTER YOUR CHOICE :";
+	    cin>>ch2;
+
+	    if(ch2==1)
+	    {
+	      clrscr();
+	      member();
+	      break;
+	    }
+	   else if(ch2==2)
+	    {
+	      clrscr();
+	      nmember();
+	     break;
+	    }
+	   else if(ch2==3)
+	    {
+	      clrscr();
+	      menu();
+	      break;
+	    }
+	    else
+	    {
+	     exit(0);
+	    }
+	    }while(1);
+	 }
+
+	void member()
+	   {
+	    do
+	    {
+	    clrscr();
+	    cout<<"\n\t\tWELCOME TO CLUB : MEMBER PROTOCOLS";
+	    cout<<"\n\n[1].REGISTER\n[2].SEARCH\n[3].MAIN MENU";
+	    int ch1;
+	    cout<<"\n\nENTER YOUR CHOICE :";
+	    cin>>ch1;
+	    fstream f1;
+	    switch(ch1)
+	    {
+	     case 1: clrscr();
+		     int m=25000;
+
+		     cout<<"\n\t\tFILL IN THE INFORMATION TO BE A MEMBER";
+
+		     cout<<"\nNEW MEMBER DETAILS:";
+		     f1.open("member.txt",ios::in|ios::binary|ios::out|ios::app);
+		     cout<<"\nMEMBER CODE :";
+		     cin>>mn;
+		     f1<<"MEMBER CODE :"<<mn<<endl;
+		     cout<<"NAME :";
+		     gets(name);
+		     f1<<"NAME :"<<name<<endl;
+		     cout<<"GENDER :";
+		     gets(gen);
+		      f1<<"GENDER :"<<gen<<endl;
+		     cout<<"PROFESSION :";
+		     gets(prof);
+		      f1<<"PROFESSION :"<<prof<<endl;
+		     cout<<"ADDRESS :";
+		     gets(addr);
+		      f1<<"ADDRESS :"<<addr<<endl;
+		     cout<<"CONTACT NUMBER :";
+		     cin>>telno;
+		      f1<<"CONTACT NUMBER :"<<telno<<endl;
+		     cout<<"DATE :";
+		     cin>>date;
+		     f1<<"DATE :"<<date<<endl;
+		     cout<<"\nYOU HAVE TO PAY TOTAL AMOUNT OF Rs.25K";
+		     cout<<"\n\nCONGRATULATIONS!!! YOU ARE NOW THE MEMBER OF MNPO CLUB";
+		     f1<<"AMOUNT PAID :"<<m<<endl;
+      f1<<"--------------------------------------------------------------------"<<endl;
+
+		     f1.seekg(0,ios::end);
+		     f1.close();
+		     getch();
+
+		     back();
+		     break;
+
+	     case 2:clrscr();
+		    int mcode;
+		    cout<<"\n\t\tSEARCH RECENT DETAILS ENTERED";
+		    cout<<"\nENTER THE MEMBER CODE YOU WANT TO SEARCH FOR:";
+		    cin>>mcode;
+		    f1.open("member.txt",ios::in);
+		    f1.seekg(0,ios::beg);
+		    while(f1.read((char *)this,sizeof(club)));
+		    {
+			cout<<"\nNAME :"<<name;
+			cout<<"\nGENDER :"<<gen;
+			cout<<"\nPROFESSION :"<<prof;
+			cout<<"\nADDRESS :"<<addr;
+			cout<<"\nCONTACT NUMBER :"<<telno;
+			cout<<"\nDATE :"<<date;
+			cout<<"\n\nPAID AMOUNT IS:"<<m;
+			getch();
+			back();
+		      }
+			 f1.close();
+			 getch();
+			  break;
+
+		  case 3:menu();
+		    break;
+
+	   default: exit(0);
+	    }
+
+	  }
+	    while(1);
+	   }
+
+	  void nmember()
+	  {
+	    clrscr();
+	    b=1000,t=1000,s=1000,sw=1000;
+	     cout<<"\n\t\tWELCOME TO CLUB : NON-MEMBER PROTOCOLS";
+	    cout<<"\n\n[1].REGISTER\n[2].SEARCH\n[3].MAIN MENU";
+	    int ch1;
+	    cout<<"\n\nENTER YOUR CHOICE :";
+	    fstream f2;
+	    cin>>ch1;
+	    switch(ch1)
+	    {
+	     case 1:R:clrscr();
+		     cout<<"\n\t\tFILL IN THE INFORMATION TO BE A MEMBER";
+		     cout<<"\nNEW MEMBER DETAILS:";
+		     f2.open("nmember.txt",ios::out|ios::app);
+		     cout<<"\nMEMBER CODE :";
+		     cin>>mn;
+		     f2<<"MEMBER CODE :"<<mn<<endl;
+		     cout<<"NAME :";
+		     gets(name);
+		     f2<<"NAME :"<<name<<endl;
+		     cout<<"GENDER :";
+		     gets(gen);
+		     f2<<"GENDER :"<<gen<<endl;
+		     cout<<"PROFESSION :";
+		     gets(prof);
+		     f2<<"PROFESSION :"<<prof<<endl;
+		     cout<<"ADDRESS :";
+		     gets(addr);
+		      f2<<"ADDRESS :"<<addr<<endl;
+		     cout<<"CONTACT NUMBER :";
+		     cin>>telno;
+		      f2<<"CONTACT NUMBER :"<<telno<<endl;
+		     cout<<"DATE :";
+		     cin>>date;
+		     f2<<"DATE :"<<date<<endl;
+		     cout<<"\nCHOOSE YOUR SPORT AMONG THESE :";
+		     cout<<"\n1.BADMINTON\n2.TENNIS\n3.SQUASH\n4.SWIMMING ";
+		     cout<<"\n5.BADMINTON & TENNIS\n6.SQUASH & SWIMMING ";
+		     cout<<"\n7.BADMINTON & SQUASH\n8.TENNIS & SWIMMING ";
+		     cout<<"\n9.BADMINTON & SWIMMING\n10.TENNIS & SQUASH";
+		     cout<<"\n11.ALL SPORTS";
+		     int st=0;
+		     cout<<"\n\nENTER THE SPORT YOU WANNA OPT :";
+		     cin>>st;
+		     f2<<"SPORTS :"<<st<<endl;
+		     if(st==1)
+		     {
+		     cout<<"\nTOTAL AMOUNT BADMINTON :"<<b;
+		     f2<<"SPORTS CHOOSEN IS BADMINTON AND AMOUNT TO PAY ="<<b<<endl;
+		      }
+	     else if(st==2)
+		     {
+		      cout<<"\nTOTAL AMOUNT FOR TENNIS :"<<t;
+		      f2<<"SPORTS CHOOSEN IS TENNIS AND AMOUNT PAID :"<<t<<endl;
+		     }
+		     else if(st==3)
+		     {
+		      cout<<"\nTOTAL AMOUNT FOR SQUASH :"<<s;
+		      f2<<"SPORTS CHOOSEN IS SQUASH AND AMOUNT PAID :"<<s<<endl;
+		     }
+		     else if(st==4)
+		     {
+		      cout<<"\nTOTAL AMOUNT FOR SWIMMING :"<<sw;
+		      f2<<"SPORTS CHOOSEN IS SQUASH AND AMOUNT PAID :"<<sw<<endl;
+		     }
+		      else if(st==5)
+		     {
+		      cout<<"\nTOTAL AMOUNT FOR BADMINTON AND TENNIS :"<<b+t;
+		      f2<<"SPORTS CHOOSEN IS BADMINTON AND TENNIS AND AMOUNT PAID :"<<b+t<<endl;
+		     }
+		      else if(st==6)
+		      {
+		       cout<<"\nTOTAL AMOUNT FOR SQUASH AND SWIMMING  :"<<s+sw;
+		       f2<<"SPORTS CHOOSEN IS SQUASH AND SWIMMING AND AMOUNT PAID :"<<s+sw<<endl;
+		      }
+		      else if(st==7)
+		      {
+		       cout<<"\nTOTAL AMOUNT FOR BADMINTON AND SQUASH:"<<b+s;
+		       f2<<"SPORTS CHOOSEN IS BADMINTON AND SQUASH AND AMOUNT PAID :"<<b+s<<endl;
+		      }
+		      else if(st==8)
+		      {
+		       cout<<"\nTOTAL AMOUNT SWIMMING TENNIS :"<<sw+t;
+		       f2<<"AMOUNT PAID :"<<sw+t<<endl;
+		      }
+		      else if(st==9)
+		      {
+		       cout<<"\nTOTAL AMOUNT FOR SWIMMING AND BADMINTON :"<<sw+b;
+		       f2<<"SPOTRTS CHOOSEN IS BADMINTON AND SWIMMING AND AMOUNT PAID :"<<sw+b<<endl;
+		      }
+		      else if(st==10)
+		      {
+		       cout<<"\nTOTAL AMOUNT FOR SQUASH AND TENNIS:"<<s+t;
+		       f2<<"SPORTS CHOOSEN IS SQUASH AND TENNIS AND AMOUNT PAID :"<<s+t<<endl;
+		      }
+		      else if(st==11)
+		      {
+		      cout<<"YOU HAVE CHOOSEN ALL SPORTS SO TOTAL AMOUNT IS :"<<sw+b+t+s;
+		      f2<<"YOU HAVE CHOOSEN ALL SPORTS SO AMOUNT PAID :"<<sw+t+s+b;
+		      }
+		      else
+		     cout<<"INVALID CHOICE";
+		     f2<<"--------------------------------------------------------------------"<<endl;
+		     back();
+		     f2.seekg(0,ios::end);
+		     getch();
+		     f2.close();
+		     break;
+
+	     case 2:clrscr();
+		    cout<<"\n\t\tSEARCH RECENT DETAILS ENTERED";
+		    cout<<"\nENTER THE MEMBER CODE YOU WANT TO SEARCH FOR:\n";
+		    cin>>mn;
+		    f2.open("nmember.txt",ios::in);
+		    f2.seekg(0,ios::beg);
+		    while(f2.read((char *)this,sizeof(club)))
+		    {
+			cout<<"\nNAME :"<<name;
+			cout<<"\nGENDER :"<<gen;
+			cout<<"\nPROFESSION :"<<prof;
+			cout<<"\nADDRESS :"<<addr;
+			cout<<"\nCONTACT NUMBER :"<<telno;
+			cout<<"\nDATE :"<<date;
+			back();
+		    }
+
+		    f2.close();
+		    getch();
+		    break;
+
+
+	     case 3: menu();
+		     break;
+
+	     default:exit(0);
+	     }
+	  }
+};
+
+void main()
+{
+ clrscr();
+ club ob;
+ ob.welcome();
+ ob.menu();
+getch();
+}
